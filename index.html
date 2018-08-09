@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Arduino Controller via Web Browser & Smart Phone</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//davidshimjs.github.com/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+
+      height: 100VH;
+      width: 100vw;
+      display: block;
+      color: white;
+      font-family: Verdana, sans-serif;
+      font-size: 3em;
+      text-align: center;
+      padding-top: 5em;
+      overflow: hidden;
+      position: relative;
+
+    }
+
+    #main {
+      background: linear-gradient( to top, #BBD2C5 0%, #536976 40%, #292E49 90%);
+      -webkit-transition: transform .9s linear;
+      -moz-transition: transform .9s linear;
+      -o-transition: transform .9s linear;
+      transition: transform .9s linear;
+      background-repeat: no-repeat;
+      height: 200vh;
+      width: 100%;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+
+    }
+
+    #qr {
+      margin-top: 2em;
+    }
+
+    #qr img {
+      margin: 0 auto;
+      background-color: white;
+      padding: 10px;
+    }
+
+    #arduino:before {
+      content: "LDR";
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main"> </div>
+  Hello World!
+  <div id="arduino"> </div>
+  <script src="public/script.js">
+  </script>
+</body>
+
+</html>
