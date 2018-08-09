@@ -29,6 +29,7 @@ if ( window.location.href.indexOf( '?id=' ) > 0 ) {
 
 
 
+
     // io.on('arduinoUpdate', function(data) {
     //
     //   document.getElementById("arduino").innerHTML = data;
@@ -45,8 +46,17 @@ if ( window.location.href.indexOf( '?id=' ) > 0 ) {
 }
 io.on( 'controller_state_change', function ( data ) {
 
-  console.log( data );
+  document.getElementById( "arduino" ).innerHTML = data.beta;
+
+  if ( data.gamma ) {
+    console.log( data.beta + " " + data.gamma )
+    document.getElementById( "phone" ).style.transform = "translate(" + data.gamma + "%, " + data.beta + "%)";
+  } else {
+    document.getElementById( "phone" ).style.transform = "translateY(-50%)";
+  }
 } );
+
+
 io.on( 'controller_connected', function ( connected ) {
   console.log( "we have a call" );
 
@@ -56,9 +66,9 @@ io.on( 'controller_connected', function ( connected ) {
     qrCodeImage( "none" );
 
     var controller_state = {
-        accelerate: false,
-        steer: 0,
-        alpha: 0
+
+        alpha: 0,
+        gamma: 0
       },
       emit_updates = function () {
         io.emit( 'controller_state_change', controller_state );
@@ -81,7 +91,8 @@ io.on( 'controller_connected', function ( connected ) {
       }
     deviceorientation = function ( e ) {
       //controller_state.steer = e.accelerationIncludingGravity.y / 100;
-      controller_state.alpha = e.beta.toFixed( 2 );
+      controller_state.beta = e.beta.toFixed();
+      controller_state.gamma = e.gamma.toFixed();
       emit_updates();
     }
     // document.body.addEventListener('touchstart', touchstart, false); // iOS & Android

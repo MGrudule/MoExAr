@@ -38,9 +38,12 @@
 
     #qr {
       margin-top: 2em;
+      z-index: 9999;
     }
 
     #qr img {
+
+      z-index: 9999;
       margin: 0 auto;
       background-color: white;
       padding: 10px;
@@ -50,6 +53,23 @@
       content: "LDR";
 
     }
+
+    #phone {
+      z-index: -1;
+      display: block;
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      top: 4em;
+      left: calc(25% - 10px);
+
+      background: radial-gradient(closest-side, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.3) 40%, rgba(255, 255, 255, 0) 100%);
+      -webkit-transition: transform .9s linear;
+      -moz-transition: transform .9s linear;
+      -o-transition: transform .9s linear;
+      transition: transform .9s linear;
+      background-repeat: no-repeat;
+    }
   </style>
 </head>
 
@@ -57,6 +77,7 @@
   <div id="main"> </div>
   Hello World!
   <div id="arduino"> </div>
+  <div id="phone"> </div>
   <script src="public/script.js">
   </script>
 </body>
