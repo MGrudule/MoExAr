@@ -16,7 +16,7 @@ var express = require( 'express' ),
   Board = require( "firmata" ),
   ///for correct display of data from Serial port
   Readline = SerialPort.parsers.Readline;
-
+pixel = require( "node-pixel" );
 
 server.listen( port );
 
@@ -43,12 +43,35 @@ myBoard = new five.Board();
 // After successful initialisation of the board this code block will be run
 myBoard.on( "ready", function () {
 
-  // Instantiate a LED Object (Arduino Uno has a LED attached to Pin 13)
-  myLed = new five.Led( 13 );
+  // // Instantiate a LED Object (Arduino Uno has a LED attached to Pin 13)
+  // myLed = new five.Led( 13 );
+  //
+  // Add myLed to REPL
 
-  // Strobe the LED (ms)
-  myLed.strobe( 300 );
 
+  strip = new pixel.Strip( {
+    board: this,
+    controller: "FIRMATA",
+    strips: [ {
+      pin: 6,
+      length: 4
+    }, ], // this is preferred form for definition
+    gamma: 2.8, // set to a gamma that works nicely for WS2812
+  } );
+  // Just like DOM-ready for web developers.
+  strip.on( "ready", function () {
+    // Set the entire strip to pink.
+    strip.color( '#42eef4' );
+
+    // Send instructions to NeoPixel.
+    strip.show();
+    //strip.off();
+  } );
+
+  // Allows for command-line experimentation!
+  this.repl.inject( {
+    strip: strip
+  } );
 } );
 
 // Log that the servers running
