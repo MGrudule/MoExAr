@@ -41,6 +41,10 @@ var myBoard, myLed;
 myBoard = new five.Board();
 
 // After successful initialisation of the board this code block will be run
+
+
+// Log that the servers running
+console.log( "Server running on port: " + port );
 myBoard.on( "ready", function () {
 
   // // Instantiate a LED Object (Arduino Uno has a LED attached to Pin 13)
@@ -53,29 +57,33 @@ myBoard.on( "ready", function () {
     board: this,
     controller: "FIRMATA",
     strips: [ {
-      pin: 6,
-      length: 4
+      pin: 5,
+      length: 5
     }, ], // this is preferred form for definition
     gamma: 2.8, // set to a gamma that works nicely for WS2812
   } );
   // Just like DOM-ready for web developers.
   strip.on( "ready", function () {
     // Set the entire strip to pink.
-    strip.color( '#42eef4' );
+    strip.clear();
+    strip.color( '#FFFFFF' );
+    strip.show();
+    strip.clear();
 
+    strip.color( '#66ff66' );
     // Send instructions to NeoPixel.
     strip.show();
     //strip.off();
+
   } );
+
+
 
   // Allows for command-line experimentation!
   this.repl.inject( {
     strip: strip
   } );
 } );
-
-// Log that the servers running
-console.log( "Server running on port: " + port );
 
 // On any connection to the socket
 io.sockets.on( 'connection', function ( socket ) {
